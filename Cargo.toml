@@ -1,0 +1,25 @@
+[package]
+name = "benilla-launcher"
+version = "0.3.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/zmarotrix/Benilla-OctoWoW-Updater"
+description = "Keeps a Benilla install's own copy of the OctoWoW game files current, then starts the game"
+
+[lints.clippy]
+too_many_arguments = "allow"
+
+[dependencies]
+# A small window, drawn with OpenGL so it shares nothing with the game's renderer. Wayland and X11
+# are both loaded at run time, so one Linux build serves either desktop.
+eframe = { version = "0.33", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
+# The folder picker for "copy from an existing install"; the XDG portal on Linux needs no GTK.
+rfd = { version = "0.16", default-features = false, features = ["xdg-portal", "tokio"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+tokio = { version = "1", features = ["rt-multi-thread", "time", "sync", "macros"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha1 = "0.10.6"
+
+[profile.release]
+strip = true
